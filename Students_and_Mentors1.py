@@ -12,6 +12,17 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
+class Lecturer(Mentor):
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.course_grades = {}
+
+
+class Reviewer(Mentor):
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.courses_attached = []
         
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -21,26 +32,15 @@ class Mentor:
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
-
-class Revewier(Mentor):
-
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
-
-
-class Lecturer(Mentor):
-   def __init__(self, name, surname):
-       super().__init__(name, surname)
-
  
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
+student_best = Student('Ruoy', 'Eman', 'your_gender')
+student_best.courses_in_progress += ['Python']
  
-cool_revewie = Revewier('Some', 'Buddy')
-cool_revewie.courses_attached += ['Python']
+some_reviewer = Reviewer('Jimi', 'Acha-Acha')
+some_reviewer.courses_attached += ['Python']
+
+some_reviewer.rate_hw(student_best, 'Python', 7)
+some_reviewer.rate_hw(student_best, 'Python', 9)
+some_reviewer.rate_hw(student_best, 'Python', 10)
  
-cool_revewie.rate_hw(best_student, 'Python', 10)
-cool_revewie.rate_hw(best_student, 'Python', 10)
-cool_revewie.rate_hw(best_student, 'Python', 10)
- 
-print(best_student.grades)
+print(student_best.grades)
